@@ -1,43 +1,44 @@
-flipper zero
-Wireless IoT Security Testbed based on Raspberry Pi and ESP32
+# Proxnet: Wireless IoT Security Testbed 🛜🔒
 
-flipper zero - Wireless IoT Security Testbed
-Overview
-flipper zero is a portable testbed designed for authorized wireless IoT security analysis within a controlled lab environment. It utilizes a Raspberry Pi 4 as the central controller, an ESP32 for RFID/NFC and Bluetooth/BLE scanning, and direct SPI connections for nRF24L01+ (2.4GHz) and CC1101 (Sub-GHz) analysis.
+Proxnet (internally "flipper zero") is a portable testbed designed for authorized wireless IoT security analysis within a controlled lab environment.
 
-⚠️ Safety Note: All active radio transmissions (sniffing, replay, jamming) are intended strictly for use within a Faraday-shielded lab environment on authorized devices, following established Rules of Engagement (ROE).
+## ⚠️ Safety Note
+All active radio transmissions (sniffing, replay, jamming) are intended strictly for use within a Faraday-shielded lab environment on authorized devices, following established Rules of Engagement (ROE).
 
-Hardware Components
-Controller: Raspberry Pi 4 Model B (4GB)
-Microcontroller: ESP32 Dev Module (WROOM, externally powered, UART data link to Pi)
-RFID/NFC:
-MFRC522 (13.56 MHz, via ESP32 SPI)
-RDM6300 (125 kHz, via ESP32 UART & LLC)
-2.4 GHz: nRF24L01+ PA/LNA (via Pi SPI)
-Sub-GHz: CC1101 (via Pi SPI - Note: Module currently suspected faulty)
-Wi-Fi: Monitor-mode capable USB Adapter (e.g., RTL8188EUS based - Note: Capture script requires compatible adapter & driver)
-Power: Official Raspberry Pi 4 PSU, External 5V for ESP32
-Interface: 5" HDMI Touch Display (intended for Kiosk Mode)
-Logic Leveling: 8-Channel Bi-Directional Logic Level Converter (LLC)
-Power Regulation: LM2596 Buck Converter (for 3.3V Pi radios)
-Safety: Physical Kill Switch
-Functionality
-RFID/NFC Scanning: Reads and logs UIDs from 13.56MHz and 125kHz tags via ESP32.
-Bluetooth/BLE Scanning: Discovers nearby BT Classic and BLE devices via ESP32.
-nRF24L01+ Sniffing: Captures raw packets on a specified 2.4GHz channel via Pi.
-CC1101 Sniffing: Captures raw packets on Sub-GHz frequencies (e.g., 433MHz) via Pi (requires working module).
-Wi-Fi Capture: Captures 802.11 packets using tcpdump (requires compatible adapter/driver).
-Web UI: Flask-based interface for starting/stopping scanners/sniffers and viewing recent logs.
-Data Logging: Stores results in SQLite database (logs/proxnet_log.db) and CSV files (logs/proxnet_log.csv). Sniffer outputs go to .log files in logs/.
-Setup & Usage
-(Detailed setup instructions to be added)
+## 🛠️ Overview
+The system uses a Raspberry Pi 4 as the central controller, paired with an ESP32 for RFID/NFC and Bluetooth/BLE scanning. [cite_start]It features direct SPI connections for nRF24L01+ (2.4GHz) and CC1101 (Sub-GHz) analysis.
 
-Hardware: Assemble components according to wiring diagrams.
-Pi Setup: Flash Raspberry Pi OS Lite, install dependencies (git, python3-venv, aircrack-ng, tshark, tcpdump, sqlite3, lsof, graphical components if using kiosk mode). Configure SPI/I2C/Serial via raspi-config. Set dumpcap capabilities. Add user to dialout and wireshark groups.
-ESP32 Firmware: Flash the appropriate .ino sketch using Arduino IDE with ESP32 board support.
-Clone Repository: git clone https://github.com/Nishant-404/Proxnet.git (replace URL if needed). cd Proxnet
-Create Python Environment: python3 -m venv venv
-Activate Environment: source venv/bin/activate
-Install Python Libs: pip install -r requirements.txt (Note: requirements.txt needs to be created)
-Run Web UI: python3 scripts/web_ui.py
-Access UI via browser: http://<Pi_IP_Address>:5000
+## ⚙️ Hardware Components
+* [cite_start]**Controller:** Raspberry Pi 4 Model B (4GB) [cite: 71]
+* [cite_start]**Microcontroller:** ESP32 Dev Module (WROOM, UART data link to Pi) [cite: 71]
+* [cite_start]**RFID/NFC:** MFRC522 (13.56 MHz) & RDM6300 (125 kHz) [cite: 71]
+* [cite_start]**2.4 GHz:** nRF24L01+ PA/LNA [cite: 71]
+* [cite_start]**Sub-GHz:** CC1101 (Note: Module currently disabled/suspected faulty) [cite: 71, 73]
+* [cite_start]**Wi-Fi:** Monitor-mode capable USB Adapter (e.g., RTL8188EUS) [cite: 71]
+* [cite_start]**Power/Safety:** LM2596 Buck Converter, Logic Level Converter, Physical Kill Switch [cite: 71]
+
+## 🚀 Functionality
+* [cite_start]**RFID/NFC:** Scans and logs UIDs from 13.56MHz and 125kHz tags.
+* [cite_start]**Bluetooth/BLE:** Discovers nearby Classic and BLE devices.
+* [cite_start]**Radio Sniffing:** Captures raw 2.4GHz packets (and Sub-GHz, pending module replacement)[cite: 72, 73].
+* [cite_start]**Wi-Fi Capture:** Captures 802.11 packets using tcpdump.
+* [cite_start]**Web UI:** Flask-based interface for managing scanners and viewing logs[cite: 75].
+* [cite_start]**Logging:** Stores results in SQLite and CSV formats[cite: 76].
+
+## 📝 Setup (Quickstart)
+1.  [cite_start]Assemble hardware as per the `Wiring.md`[cite: 77].
+2.  [cite_start]Flash Raspberry Pi OS Lite and install dependencies (`git`, `python3-venv`, `aircrack-ng`, etc.)[cite: 78].
+3.  [cite_start]Configure Pi SPI/I2C/Serial via `raspi-config`[cite: 79].
+4.  [cite_start]Flash ESP32 with the provided `.ino` sketch[cite: 80].
+5.  Clone and run:
+    ```bash
+    git clone [https://github.com/Nishant-404/Proxnet.git](https://github.com/Nishant-404/Proxnet.git)
+    cd Proxnet
+    python3 -m venv venv
+    source venv/bin/activate
+    pip install -r requirements.txt
+    python3 scripts/web_ui.py
+    ```
+6.  Access the UI at `http://<Pi_IP_Address>:5000`[cite: 81].
+
+*For detailed wiring schematics, see `Wiring.md`.*
