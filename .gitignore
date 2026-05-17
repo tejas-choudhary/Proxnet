@@ -1,0 +1,43 @@
+# Python Bytecode and Cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+.venv/
+ENV/
+env/
+
+# IDE / Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.pyk
+*~
+
+# Log Files
+*.log
+logs/*.log
+logs/proxnet_log.csv
+
+# Data Files
+*.db
+*.db-journal
+logs/*.db
+logs/*.db-journal
+
+# Packet Captures
+pcaps/
+*.pcap
+*.pcapng
+
+# OS / Temp Files
+.DS_Store
+Thumbs.db
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/

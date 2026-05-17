@@ -1,0 +1,7 @@
+Flask>=3.0.0
+pyserial>=3.5
+spidev>=3.6
+pyRF24>=0.6.0
+# pycc1101 >= 0.0.1 # Optional if CC1101 is used later
+# adafruit-blinka>=8.0.0 # Only needed if using CircuitPython libraries directly on Pi
+# adafruit-circuitpython-pn532 # Only if PN532 connected to Pi
